@@ -1,0 +1,15 @@
+.header-block {
+    text-align: center;
+}
+
+.logo {
+    border: solid 1px grey;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 5px;
+}
+
+.content {
+    padding: 20px;
+}
