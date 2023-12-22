@@ -33,6 +33,7 @@
                 <td style="position: sticky; left: 0; background-color: #fff;">Автор</td>
                 <td style="position: sticky; left: 0; background-color: #fff;">Дата</td>
                 <td style="position: sticky; left: 0; background-color: #fff;">Зображення</td>
+                <td style="position: sticky; left: 0; background-color: #fff;">Видалити</td>
             </tr>
             {% for post in all_posts %}
                 <tr>
@@ -45,6 +46,12 @@
                                                                                         alt="" height="24px"
                                                                                         width="24px">
                     </td>
+                    <td>
+                        <img width="32" height="32"
+                             src="{{ url_for('static', filename='img/cross.png') }}"
+                             alt="REMOVE" onclick="remove_post({{ post.id }})">
+                    </td>
+
                 </tr>
             {% endfor %}
             </tbody>
@@ -85,3 +92,21 @@
 
 </body>
 </html>
+
+<script>
+    function remove_post(post_id) {
+        var obj ={
+            post_id: post_id
+        }
+        $.ajax({
+            type: "POST",
+            data: {
+                json: JSON.stringify(obj)
+            },
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+</script>
