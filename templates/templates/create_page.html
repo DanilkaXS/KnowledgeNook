@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KnowledgeNook | Створення запису</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+            integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <div class="header-block">
+        <a href="\"><img class="logo" src="/img/logo.jpg" alt="Логотип платформи"></a>
+        <h1>KnowledgeNook | Створення запису</h1>
+    </div>
+</header>
+<main>
+    <div class="container mt-5">
+        <h1>Створення нового запису</h1>
+
+        <form id="postForm" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="postName" class="form-label">Назва запису</label>
+                <input type="text" class="form-control" name="postName" id="postName"
+                       placeholder="Введіть назву запису">
+            </div>
+
+            <div class="mb-3">
+                <label for="author" class="form-label">Автор</label>
+                <input type="text" class="form-control" name="autor" id="author" placeholder="Введіть автора" value="{{ user_data.name }}" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Зображення запису</label>
+                <input type="file" class="form-control" name="image" id="image" accept="image/x-png, image/jpeg" placeholder="Виберіть зображення">
+            </div>
+
+            <div class="mb-3">
+                <label for="text" class="form-label">Текст запису</label>
+                <textarea class="form-control" name="text" id="text" rows="5"
+                          placeholder="Введіть текст запису"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="tags" class="form-label">Теги (через кому)</label>
+                <input type="text" class="form-control" name="tags" id="tags" placeholder="Введіть теги">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Опублікувати запис</button>
+        </form>
+    </div>
+</main>
+<footer>
+    <div>
+
+    </div>
+</footer>
+</body>
+</html>

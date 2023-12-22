@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KnowledgeNook | Головна сторінка</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+            integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <div class="header-block">
+        <img class="logo" src="/img/logo.jpg" alt="Логотип платформи">
+        <h1>KnowledgeNook | Головна сторінка</h1>
+
+        {% if user_data %}
+
+            <div class="container marketing centered">
+                <div class="row justify-content-center">
+                    <div class="col-lg-2">
+                        <p></p>
+                    </div>
+                    <div class="col-lg-7">
+                        <button type="button" class="btn btn-primary btn-rounded"
+                                onclick="location.href = '\\create';">
+                            Створити
+                            запис
+                        </button>
+                    </div>
+                    <div style="width: min-content" class="col-lg-2">
+                        <p style="margin-left: 5px" class="fs-5 align-middle">{{ user_data.name }}</p>
+                    </div>
+                    <div style="width: min-content" class="col-lg-2">
+
+                        <img class="bd-placeholder-img"
+                             src="data:image/png;base64,{{ user_data.user_icon }}"
+                             alt="" height="32" width="32" onclick="location.href = '\\user';">
+                    </div>
+                    <div style="width: min-content" class="col-lg-2">
+                        <a style="margin-left: 5px" href="/logout">
+                            <img width="32" height="32"
+                                 src="{{ url_for('static', filename='img/logout.png') }}"
+                                 alt="LOGOUT">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <button type="button" class="btn btn-primary btn-rounded" onclick="location.href = '\\login';">
+                Увійти
+            </button>
+        {% endif %}
+
+
+    </div>
+</header>
+<main>
+    <div style="margin: 50px">
+        <div class="container marketing centered">
+            <div class="row centered">
+                {% for post in  all_posts %}
+                    <div class="col-lg-4">
+                        <img class="bd-placeholder-img"
+                             src="data:image/png;base64,{{ post.img }}"
+                             alt="" height="140" width="140px">
+                        <h2 class="fw-normal"> {{ post.name[:15] }}... </h2>
+                        <p>Автор: {{ post.autor[:15] }}...</p>
+                        <p>Дата: {{ post.date[:11] }}</p>
+                        <p>{{ post.text [:50] }}...</p>
+                        <p>
+                            <a class="btn btn-secondary" href="view?id={{ post.id }}">Переглянути продовження&raquo;</a>
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div>
+
+    </div>
+</footer>
+
+</body>
+</html>

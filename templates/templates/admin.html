@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KnowledgeNook | Адмін-панель</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+            integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <div class="header-block">
+        <a href="\"><img class="logo" src="/img/logo.jpg" alt="Логотип платформи"></a>
+        <h1>KnowledgeNook | Адмін панель</h1>
+    </div>
+</header>
+<main>
+    <div>
+        <h3>Список записів</h3>
+        <table>
+            <tbody>
+            <tr>
+                <td style="position: sticky; left: 0; background-color: #fff;">ID</td>
+                <td style="position: sticky; left: 0; background-color: #fff;">Назва</td>
+                <td style="position: sticky; left: 0; background-color: #fff;">Автор</td>
+                <td style="position: sticky; left: 0; background-color: #fff;">Дата</td>
+                <td style="position: sticky; left: 0; background-color: #fff;">Зображення</td>
+                <td style="position: sticky; left: 0; background-color: #fff;">Видалити</td>
+            </tr>
+            {% for post in all_posts %}
+                <tr>
+                    <td style="position: sticky; left: 0; background-color: #fff;">{{ post.id }}</td>
+                    <td style="position: sticky; left: 0; background-color: #fff;">{{ post.name }}</td>
+                    <td style="position: sticky; left: 0; background-color: #fff;">{{ post.autor }}</td>
+                    <td style="position: sticky; left: 0; background-color: #fff;">{{ post.date }}</td>
+                    <td style="position: sticky; left: 0; background-color: #fff;"><img class="bd-placeholder-img"
+                                                                                        src="data:image/png;base64,{{ post.img }}"
+                                                                                        alt="" height="24px"
+                                                                                        width="24px">
+                    </td>
+                    <td>
+                        <img width="32" height="32"
+                             src="{{ url_for('static', filename='img/cross.png') }}"
+                             alt="REMOVE" onclick="remove_post({{ post.id }})">
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h3>Список користувачів</h3>
+        <table>
+            <tbody>
+            <tr>
+                <td style="position: sticky; left: 0; background-color: #fff;">ID</td>
+                <td style="position: sticky; left: 0; background-color: #fff;">Ім'я</td>
+                <td style="position: sticky; left: 0; background-color: #fff;">Іконка</td>
+                <td style="position: sticky; left: 0; background-color: #fff;">Роль</td>
+                <td style="position: sticky; left: 0; background-color: #fff;">Рейтинг</td>
+            </tr>
+            {% for user in all_users %}
+                <tr>
+                    <td style="position: sticky; left: 0; background-color: #fff;">{{ user.id }}</td>
+                    <td style="position: sticky; left: 0; background-color: #fff;">{{ user.name }}</td>
+                    <td style="position: sticky; left: 0; background-color: #fff;"><img class="bd-placeholder-img"
+                                                                                        src="data:image/png;base64,{{ user.user_icon }}"
+                                                                                        alt="" height="24px"
+                                                                                        width="24px"></td>
+                    <td style="position: sticky; left: 0; background-color: #fff;">{{ user.role }}</td>
+                    <td style="position: sticky; left: 0; background-color: #fff;">{{ user.raiting }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>
+    <div>
+
+    </div>
+</footer>
+
+</body>
+</html>
+
+<script>
+    function remove_post(post_id) {
+        var obj ={
+            post_id: post_id
+        }
+        $.ajax({
+            type: "POST",
+            data: {
+                json: JSON.stringify(obj)
+            },
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+</script>
