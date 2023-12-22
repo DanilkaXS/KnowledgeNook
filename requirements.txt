@@ -1,3 +1,2 @@
 flask~=3.0.0
 SQLAlchemy~=2.0.21
-Gunicorn~=20.1.0

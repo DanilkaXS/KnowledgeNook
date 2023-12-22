@@ -2,7 +2,7 @@ import base64
 import datetime
 
 from flask import Flask, render_template, request, redirect, session
-from sqlalchemy import create_engine, Column, Integer, String, BLOB
+from sqlalchemy import create_engine, Column, Integer, String, BLOB, delete
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -262,21 +262,30 @@ def admin_page():
     all_posts = session_db.query(Posts).all()
     all_posts.reverse()
     session_db.close()
-    for i in all_posts:
-        i.img = base64.b64encode(i.img).decode('utf-8')
-    if "userkey" in session:
-        user_cookie = session["userkey"].split("$")
-        print(user_cookie)
-        user_data = session_db.query(Users).filter_by(id=user_cookie[1]).first()
-        user_data.user_icon = base64.b64encode(user_data.user_icon).decode('utf-8')
+    if request.method == "POST":
+        print(request.form["json"].split(":")[1][:-1])
+        post_id = request.form["json"].split(":")[1][:-1]
+        delete_post = session_db.query(Posts).filter_by(id=post_id).delete()
+        session_db.commit()
         session_db.close()
-        print(user_data)
-        all_users = session_db.query(Users).all()
-        for i in all_users:
-            i.user_icon = base64.b64encode(i.user_icon).decode('utf-8')
-        return render_template("admin.html", all_posts=all_posts, user_data=user_data, all_users=all_users)
+
+        return redirect("/admin")
     else:
-        return redirect("/")
+        for i in all_posts:
+            i.img = base64.b64encode(i.img).decode('utf-8')
+        if "userkey" in session:
+            user_cookie = session["userkey"].split("$")
+            print(user_cookie)
+            user_data = session_db.query(Users).filter_by(id=user_cookie[1]).first()
+            user_data.user_icon = base64.b64encode(user_data.user_icon).decode('utf-8')
+            session_db.close()
+            print(user_data)
+            all_users = session_db.query(Users).all()
+            for i in all_users:
+                i.user_icon = base64.b64encode(i.user_icon).decode('utf-8')
+            return render_template("admin.html", all_posts=all_posts, user_data=user_data, all_users=all_users)
+        else:
+            return redirect("/")
 
 
 if __name__ == '__main__':
