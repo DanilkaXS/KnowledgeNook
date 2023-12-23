@@ -250,8 +250,8 @@ def view_user_page():
             session_db.close()
 
             num_articles = len(session_db.query(Posts).filter_by(autor=user_data.name).all())
-
-            return render_template("user_page.html", user_data=user_data, num_articles=num_articles)
+            level_of_accses = session["userkey"].split("$")[0]
+            return render_template("user_page.html", user_data=user_data, num_articles=num_articles, level_of_accses=level_of_accses)
     else:
         return redirect("/")
 
